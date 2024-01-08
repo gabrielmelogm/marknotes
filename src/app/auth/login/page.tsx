@@ -1,8 +1,11 @@
 'use client'
 
 import { ErrorSpan } from '@/components/ErrorSpan'
+import { Spinner } from '@/components/Spinner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { useToast } from '@/components/ui/use-toast'
+import { api } from '@/lib/api'
 import { ErrorProps } from '@/lib/error'
 import { IFormInputsProps, formSchema } from '@/services/login.service'
 import { useState } from 'react'
@@ -10,8 +13,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 export default function Login() {
-	const [error, setError] = useState<ErrorProps>([])
-
+	const { toast } = useToast()
 	const { control, handleSubmit } = useForm<IFormInputsProps>({
 		defaultValues: {
 			email: '',
@@ -19,13 +21,27 @@ export default function Login() {
 		},
 	})
 
-	const onSubmit: SubmitHandler<IFormInputsProps> = (data) => {
+	const [loading, setLoading] = useState<boolean>(false)
+	const [error, setError] = useState<ErrorProps>([])
+
+	const onSubmit: SubmitHandler<IFormInputsProps> = async (data) => {
 		setError([])
+		setLoading(true)
 
 		try {
 			const fields = formSchema.parse(data)
-			console.log(fields)
+			await api
+				.post('/auth/login', fields)
+				.then((response) => console.log(response.data))
 		} catch (err) {
+			if (err?.response.status === 401) {
+				toast({
+					variant: 'destructive',
+					title: 'Email or password is incorrect',
+					description: 'Check that yours are correct',
+				})
+			}
+
 			if (err instanceof z.ZodError) {
 				err.issues.map((field) => {
 					setError([
@@ -37,6 +53,8 @@ export default function Login() {
 					])
 				})
 			}
+		} finally {
+			setLoading(false)
 		}
 	}
 
@@ -79,8 +97,8 @@ export default function Login() {
 							</>
 						)}
 					/>
-					<Button type="submit" className="w-full mt-8">
-						LOG IN
+					<Button type="submit" className="w-full mt-8" isLoading={loading}>
+						{loading ? <Spinner /> : 'LOG IN'}
 					</Button>
 				</form>
 			</div>

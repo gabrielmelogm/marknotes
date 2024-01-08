@@ -6,14 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "npx @biomejs/biome check --apply-unsafe src"
+    "lint": "npx @biomejs/biome check --apply-unsafe src",
+    "component:add": "pnpm dlx shadcn-ui@latest add"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-toast": "^1.1.5",
+    "axios": "^1.6.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "dotenv": "^16.3.1",
     "lucide-react": "^0.304.0",
     "next": "14.0.4",
     "react": "^18",
