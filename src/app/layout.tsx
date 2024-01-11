@@ -1,5 +1,6 @@
 import { Toaster } from '@/components/ui/toaster'
 import { AuthenticationProvider } from '@/hooks/useAuth'
+import { SidebarProvider } from '@/hooks/useSidebar'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -18,10 +19,12 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="pt-BR" className="dark">
-			<body className={`${inter.className} dark:text-zinc-50`}>
+			<body className={`${inter.className} dark:text-zinc-200`}>
 				<AuthenticationProvider>
-					{children}
-					<Toaster />
+					<SidebarProvider>
+						{children}
+						<Toaster />
+					</SidebarProvider>
 				</AuthenticationProvider>
 			</body>
 		</html>

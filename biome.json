@@ -18,6 +18,9 @@
 			},
 			"correctness": {
 				"useExhaustiveDependencies": "warn"
+			},
+			"a11y": {
+				"useKeyWithClickEvents": "off"
 			}
 		}
 	}

@@ -1,10 +1,11 @@
-import { Sidebar } from '@/components/layout/Sidebar'
+import { HUD } from '@/components/layout/HUD'
 
 export default function Home() {
 	return (
 		<main>
-			<Sidebar />
-			<h1>Hello World</h1>
+			<HUD>
+				<h1>Hello World</h1>
+			</HUD>
 		</main>
 	)
 }
