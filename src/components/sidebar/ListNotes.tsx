@@ -20,7 +20,7 @@ export function ListNotesSidebar() {
 			<ul className="flex flex-col gap-1">
 				{notes.map((note) => (
 					<li
-						className="py-1 text-sm bg-background transition ease-in-out hover:bg-gray-100 cursor-pointer"
+						className="py-1 rounded text-sm bg-background transition ease-in-out hover:bg-zinc-700 cursor-pointer"
 						key={note.id}
 					>
 						{note.title}

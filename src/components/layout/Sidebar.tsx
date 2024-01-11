@@ -4,7 +4,7 @@ import { Sheet, SheetContent } from '../ui/sheet'
 
 export function Sidebar() {
 	return (
-		<Sheet>
+		<Sheet open>
 			<SheetContent side="left">
 				<ActionsSidebar />
 				<ListNotesSidebar />
