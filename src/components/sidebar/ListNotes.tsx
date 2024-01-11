@@ -1,19 +1,27 @@
-interface IListNodesSidebar {
-	id: string
-	title: string
-}
+'use client'
+
+import { getNotes } from '@/services/notes.service'
+import { useQuery } from 'react-query'
+import { z } from 'zod'
+
+const notesSchema = z
+	.object({
+		id: z.string().uuid(),
+		title: z.string(),
+		content: z.string(),
+	})
+	.array()
+
+type IListNodesSidebar = z.infer<typeof notesSchema>
 
 export function ListNotesSidebar() {
-	const notes: IListNodesSidebar[] = [
-		{
-			id: 'note1',
-			title: 'Lorem ipsum dolor sit',
-		},
-		{
-			id: 'note2',
-			title: 'Lorem ipsum dolor sit',
-		},
-	]
+	const { data: notesData } = useQuery('notes', getNotes)
+
+	let notes = []
+
+	if (notesData) {
+		notes = notesSchema.parse(notesData)
+	}
 
 	return (
 		<div>
