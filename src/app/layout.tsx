@@ -1,5 +1,6 @@
 import { Toaster } from '@/components/ui/toaster'
 import { AuthenticationProvider } from '@/hooks/useAuth'
+import { NotesProvider } from '@/hooks/useNotes'
 import { SidebarProvider } from '@/hooks/useSidebar'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
