@@ -40,7 +40,7 @@ export default function Login() {
 				})
 				.catch((error) => console.error(error))
 		} catch (err) {
-			if (err?.response.status === 401) {
+			if (err?.response?.status === 401) {
 				toast({
 					variant: 'destructive',
 					title: 'Email or password is incorrect',
