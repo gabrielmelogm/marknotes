@@ -5,14 +5,17 @@ import { Spinner } from '@/components/Spinner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
+import { useAuth } from '@/hooks/useAuth'
 import { api } from '@/lib/api'
 import { ErrorProps } from '@/lib/error'
 import { IFormInputsProps, formSchema } from '@/services/login.service'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 export default function Login() {
+	const { LogIn } = useAuth()
 	const { toast } = useToast()
 	const { control, handleSubmit } = useForm<IFormInputsProps>({
 		defaultValues: {
@@ -20,6 +23,7 @@ export default function Login() {
 			password: '',
 		},
 	})
+	const router = useRouter()
 
 	const [loading, setLoading] = useState<boolean>(false)
 	const [error, setError] = useState<ErrorProps>([])
@@ -30,9 +34,11 @@ export default function Login() {
 
 		try {
 			const fields = formSchema.parse(data)
-			await api
-				.post('/auth/login', fields)
-				.then((response) => console.log(response.data))
+			await LogIn(fields.email, fields.password)
+				.then(() => {
+					router.push('/')
+				})
+				.catch((error) => console.error(error))
 		} catch (err) {
 			if (err?.response.status === 401) {
 				toast({
