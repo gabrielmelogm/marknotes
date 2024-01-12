@@ -6,7 +6,9 @@
 	"javascript": {
 		"formatter": {
 			"semicolons": "asNeeded",
-			"quoteStyle": "single"
+			"quoteStyle": "single",
+			"lineWidth": 80,
+			"indentWidth": 2
 		}
 	},
 	"linter": {
@@ -15,6 +17,9 @@
 			"recommended": true,
 			"suspicious": {
 				"noExplicitAny": "warn"
+			},
+			"style": {
+				"noUselessElse": "warn"
 			},
 			"correctness": {
 				"useExhaustiveDependencies": "warn"

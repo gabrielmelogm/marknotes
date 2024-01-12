@@ -1,12 +1,16 @@
+import { useNotes } from '@/hooks/useNotes'
 import CloseIcon from '@heroicons/react/outline/XIcon'
 import { TOPBAR_HEIGHT } from './layout/Topbar'
 
 interface ITabProps {
+	id: string
 	content: string
 	active?: boolean
 }
 
-export function Tab({ content, active }: ITabProps) {
+export function Tab({ id, content, active }: ITabProps) {
+	const { handleCloseNote } = useNotes()
+
 	return (
 		<li
 			data-active={active}
@@ -17,7 +21,11 @@ export function Tab({ content, active }: ITabProps) {
       `}
 		>
 			{content}
-			<button type="button" className="text-zinc-500 rounded hover:bg-zinc-700">
+			<button
+				type="button"
+				className="text-zinc-500 rounded hover:bg-zinc-700"
+				onClick={() => handleCloseNote(id)}
+			>
 				<CloseIcon width={18} />
 			</button>
 		</li>
